@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { ArrowDown, Sparkles } from "lucide-react";
+import { ArrowDown, ArrowRight } from "lucide-react";
 import SocialLinks from "@/components/shared/SocialLinks";
 import { usePortfolioContent } from "@/hooks/usePortfolioContent";
 
@@ -12,8 +12,8 @@ interface HeroContent {
 
 const defaultContent: HeroContent = {
   badge: "Disponível para novos projetos",
-  headline: ["Transformando", "ideias em", "experiências digitais"],
-  subtitle: "Desenvolvedor Front-End & Full Stack | Líder em Educação | Unindo tecnologia, gestão e propósito para criar impacto real.",
+  headline: ["Desenvolvedor", "Front-End &", "Full Stack"],
+  subtitle: "Criando experiências digitais excepcionais através de código limpo, design intuitivo e soluções que fazem a diferença.",
   ctaButtons: { primary: "Ver Projetos", secondary: "Entrar em Contato" }
 };
 
@@ -26,89 +26,71 @@ const Hero = () => {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Multiple Background Layers */}
-      <div className="absolute inset-0 hero-glow" />
-      <div className="absolute inset-0 bg-grid-pattern bg-grid opacity-20" />
+      {/* Minimal Background */}
+      <div className="absolute inset-0 bg-grid-pattern bg-grid opacity-[0.03]" />
       
-      {/* Animated Gradient Orbs */}
-      <div className="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[120px] animate-pulse-glow" />
-      <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-primary/5 rounded-full blur-[100px] animate-float" style={{ animationDelay: '2s' }} />
-      
-      {/* Floating Elements */}
-      <div className="absolute top-20 left-[10%] w-2 h-2 bg-primary rounded-full animate-float opacity-60" />
-      <div className="absolute top-32 right-[15%] w-3 h-3 bg-primary/50 rounded-full animate-float" style={{ animationDelay: '1s' }} />
-      <div className="absolute bottom-32 left-[20%] w-2 h-2 bg-primary/70 rounded-full animate-float" style={{ animationDelay: '2s' }} />
-      <div className="absolute top-1/2 right-[10%] w-1.5 h-1.5 bg-primary/40 rounded-full animate-float" style={{ animationDelay: '3s' }} />
-      
-      {/* Decorative Lines */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-40 bg-gradient-to-b from-transparent via-primary/30 to-transparent" />
-
-      <div className="container relative z-10 px-6">
-        <div className="max-w-5xl mx-auto text-center">
-          {/* Premium Badge */}
-          <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full glass-premium mb-10 animate-fade-up">
-            <Sparkles className="w-4 h-4 text-primary animate-pulse" />
-            <span className="text-sm text-foreground/80 font-medium">{content.badge}</span>
-            <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+      <div className="container relative z-10 px-6 pt-20">
+        <div className="max-w-4xl mx-auto">
+          {/* Status Badge */}
+          <div className="flex items-center gap-3 mb-8 animate-fade-up">
+            <span className="inline-flex items-center gap-2 text-sm text-muted-foreground">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+              </span>
+              {content.badge}
+            </span>
           </div>
 
-          {/* Main Headline with Premium Typography */}
-          <h1 className="font-display text-5xl md:text-6xl lg:text-8xl font-bold leading-[0.95] mb-8 animate-fade-up stagger-1">
-            <span className="block">{content.headline[0] || 'Transformando'}</span>
-            <span className="block text-gradient-animated mt-2">{content.headline[1] || 'ideias em'}</span>
-            <span className="block mt-2">{content.headline[2] || 'experiências digitais'}</span>
+          {/* Main Headline */}
+          <h1 className="text-display-lg md:text-display-xl font-bold tracking-tight mb-8 animate-fade-up stagger-1">
+            <span className="block text-foreground">{content.headline[0] || 'Desenvolvedor'}</span>
+            <span className="block text-muted-foreground">{content.headline[1] || 'Front-End &'}</span>
+            <span className="block text-foreground">{content.headline[2] || 'Full Stack'}</span>
           </h1>
 
-          {/* Subtitle with Refined Typography */}
-          <p className="text-lg md:text-xl lg:text-2xl text-muted-foreground max-w-3xl mx-auto mb-12 animate-fade-up stagger-2 leading-relaxed">
+          {/* Subtitle */}
+          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mb-12 animate-fade-up stagger-2 leading-relaxed">
             {content.subtitle}
           </p>
 
-          {/* CTA Buttons with Premium Styling */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-5 mb-16 animate-fade-up stagger-3">
+          {/* CTA Buttons */}
+          <div className="flex flex-col sm:flex-row items-start gap-4 mb-16 animate-fade-up stagger-3">
             <Button 
-              variant="hero" 
-              size="xl"
+              size="lg"
               onClick={() => scrollToSection("projetos")}
-              className="group relative overflow-hidden"
+              className="group"
             >
-              <span className="relative z-10 flex items-center gap-2">
-                {content.ctaButtons.primary}
-                <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">→</span>
-              </span>
+              {content.ctaButtons.primary}
+              <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Button>
             <Button 
-              variant="heroOutline" 
-              size="xl"
+              variant="outline" 
+              size="lg"
               onClick={() => scrollToSection("contato")}
             >
               {content.ctaButtons.secondary}
             </Button>
           </div>
 
-          {/* Social Links with Premium Hover Effects */}
-          <div className="flex items-center justify-center animate-fade-up stagger-4">
+          {/* Social Links */}
+          <div className="animate-fade-up stagger-4">
             <SocialLinks variant="hero" />
           </div>
         </div>
 
         {/* Scroll Indicator */}
-        <div className="absolute bottom-10 left-1/2 -translate-x-1/2">
+        <div className="absolute bottom-12 left-1/2 -translate-x-1/2">
           <button 
             onClick={() => scrollToSection("sobre")}
-            className="group flex flex-col items-center gap-2 hoverable"
+            className="group flex flex-col items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
             aria-label="Scroll para baixo"
           >
-            <span className="text-xs text-muted-foreground tracking-wider uppercase group-hover:text-primary transition-colors">Scroll</span>
-            <div className="p-2 rounded-full glass-premium group-hover:bg-primary/10 transition-colors animate-bounce">
-              <ArrowDown className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors" />
-            </div>
+            <span className="text-xs tracking-widest uppercase">Scroll</span>
+            <ArrowDown className="w-4 h-4 animate-bounce" />
           </button>
         </div>
       </div>
-
-      {/* Bottom Gradient Fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent" />
     </section>
   );
 };
