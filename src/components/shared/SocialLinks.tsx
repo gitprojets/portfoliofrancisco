@@ -9,32 +9,36 @@ interface SocialLinksProps {
 const SocialLinks = ({ variant = "default", className }: SocialLinksProps) => {
   const { data: links = [], isLoading } = useSocialLinks();
   
-  const baseStyles = "group relative transition-all duration-300 hoverable";
-  
   const variants = {
-    hero: "p-4 rounded-2xl glass-premium hover:bg-primary/10 hover:scale-110",
-    footer: "w-11 h-11 rounded-xl glass-premium flex items-center justify-center hover:bg-primary/10 hover:scale-110",
-    default: "p-3 rounded-xl hover:bg-primary/10",
+    hero: "flex items-center gap-1",
+    footer: "flex items-center gap-1",
+    default: "flex items-center gap-1",
+  };
+
+  const buttonVariants = {
+    hero: "p-3 rounded-lg text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors",
+    footer: "p-2.5 rounded-lg text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors",
+    default: "p-3 rounded-lg text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors",
   };
 
   const iconVariants = {
-    hero: "w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors duration-300",
-    footer: "w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors",
-    default: "w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors",
+    hero: "w-5 h-5",
+    footer: "w-4 h-4",
+    default: "w-5 h-5",
   };
 
   if (isLoading) {
     return (
-      <div className={cn("flex items-center gap-3", className)}>
+      <div className={cn(variants[variant], className)}>
         {[1, 2, 3].map((i) => (
-          <div key={i} className={cn(variants[variant], "animate-pulse bg-muted")} />
+          <div key={i} className="w-10 h-10 rounded-lg bg-secondary animate-pulse" />
         ))}
       </div>
     );
   }
 
   return (
-    <div className={cn("flex items-center gap-3", className)}>
+    <div className={cn(variants[variant], className)}>
       {links.map(({ icon, href, label }) => {
         const Icon = getIconComponent(icon);
         return (
@@ -43,15 +47,10 @@ const SocialLinks = ({ variant = "default", className }: SocialLinksProps) => {
             href={href}
             target={href.startsWith("mailto:") ? undefined : "_blank"}
             rel={href.startsWith("mailto:") ? undefined : "noopener noreferrer"}
-            className={cn(baseStyles, variants[variant])}
+            className={buttonVariants[variant]}
             aria-label={label}
           >
             <Icon className={iconVariants[variant]} />
-            {variant === "hero" && (
-              <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 text-xs text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                {label}
-              </span>
-            )}
           </a>
         );
       })}

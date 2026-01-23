@@ -1,4 +1,4 @@
-import { Mail, MapPin, Send, ArrowUpRight, Sparkles, Loader2, CheckCircle2 } from "lucide-react";
+import { Mail, MapPin, Send, Loader2, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { Reveal } from "@/hooks/useAnimations";
@@ -22,10 +22,10 @@ interface ContactContent {
 const defaultContent: ContactContent = {
   sectionTitle: "Vamos",
   sectionHighlight: "Conversar?",
-  sectionDescription: "Estou sempre aberto a novas oportunidades, projetos desafiadores e conversas sobre tecnologia, educação e inovação.",
+  sectionDescription: "Estou sempre aberto a novas oportunidades, projetos desafiadores e conversas sobre tecnologia.",
   opportunityTitle: "Aberto para Oportunidades",
-  opportunityDescription: "Buscando posições em Front-End, Full Stack, EdTech ou projetos freelance que combinem tecnologia e impacto social.",
-  opportunityTags: ["Front-End", "Full Stack", "EdTech", "Freelance"],
+  opportunityDescription: "Buscando posições em Front-End, Full Stack ou projetos freelance.",
+  opportunityTags: ["Front-End", "Full Stack", "Freelance"],
   location: "Brasil"
 };
 
@@ -102,39 +102,11 @@ const Contact = () => {
     }
   };
 
-  const contactInfo = [
-    {
-      icon: Mail,
-      label: "E-mail",
-      value: socialLinks.find(s => s.label === "Email")?.href.replace("mailto:", "") || "",
-      href: socialLinks.find(s => s.label === "Email")?.href
-    },
-    {
-      icon: socialLinks[0].icon,
-      label: "LinkedIn",
-      value: "linkedin.com/in/franciscodouglas",
-      href: socialLinks[0].href
-    },
-    {
-      icon: socialLinks[1].icon,
-      label: "GitHub",
-      value: "github.com/franciscodouglas",
-      href: socialLinks[1].href
-    },
-    {
-      icon: MapPin,
-      label: "Localização",
-      value: content.location || defaultContent.location,
-      href: null
-    }
-  ];
+  const email = socialLinks.find(s => s.label === "Email")?.href.replace("mailto:", "") || "";
 
   return (
-    <section id="contato" className="section-padding relative overflow-hidden">
-      {/* Background Effects */}
-      <div className="absolute top-1/2 right-0 w-96 h-96 bg-gradient-radial from-primary/5 via-transparent to-transparent -translate-y-1/2" />
-      
-      <div className="container relative">
+    <section id="contato" className="section-padding relative">
+      <div className="container">
         <SectionHeader
           badge="Contato"
           title={content.sectionTitle || defaultContent.sectionTitle}
@@ -142,91 +114,76 @@ const Contact = () => {
           description={content.sectionDescription || defaultContent.sectionDescription}
         />
 
-        <div className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
+        <div className="grid lg:grid-cols-2 gap-12 max-w-5xl mx-auto">
           {/* Contact Info */}
           <div className="space-y-6">
             <Reveal>
-              <div className="p-8 md:p-10 rounded-3xl glass-premium">
-                <h3 className="font-display font-semibold text-2xl mb-8">
-                  Informações de Contato
-                </h3>
+              <div className="p-8 rounded-2xl bg-card border border-border">
+                <h3 className="font-semibold text-xl mb-6">Informações</h3>
                 
                 <div className="space-y-4">
-                  {contactInfo.map((item, index) => (
-                    <Reveal key={item.label} delay={index * 100}>
-                      <div className="group flex items-center gap-4 p-4 rounded-2xl hover:bg-secondary/50 transition-all duration-300 hoverable">
-                        <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 group-hover:scale-110 transition-all duration-300">
-                          <item.icon className="w-6 h-6 text-primary" />
-                        </div>
-                        <div className="flex-1">
-                          <span className="text-xs text-muted-foreground uppercase tracking-wider block mb-1">{item.label}</span>
-                          {item.href ? (
-                            <a 
-                              href={item.href}
-                              target={item.href.startsWith("mailto:") ? undefined : "_blank"}
-                              rel={item.href.startsWith("mailto:") ? undefined : "noopener noreferrer"}
-                              className="text-sm font-medium hover:text-primary transition-colors flex items-center gap-1 group/link"
-                            >
-                              {item.value}
-                              <ArrowUpRight className="w-4 h-4 opacity-0 group-hover/link:opacity-100 transition-all duration-300" />
-                            </a>
-                          ) : (
-                            <span className="text-sm font-medium">{item.value}</span>
-                          )}
-                        </div>
-                      </div>
-                    </Reveal>
-                  ))}
+                  <div className="flex items-center gap-4 p-4 rounded-xl bg-secondary/50">
+                    <div className="w-10 h-10 rounded-lg bg-foreground text-background flex items-center justify-center">
+                      <Mail className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <span className="text-xs text-muted-foreground block">E-mail</span>
+                      <a href={`mailto:${email}`} className="text-sm font-medium hover:underline">
+                        {email}
+                      </a>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-center gap-4 p-4 rounded-xl bg-secondary/50">
+                    <div className="w-10 h-10 rounded-lg bg-foreground text-background flex items-center justify-center">
+                      <MapPin className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <span className="text-xs text-muted-foreground block">Localização</span>
+                      <span className="text-sm font-medium">{content.location || defaultContent.location}</span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </Reveal>
 
-            {/* CTA Card */}
-            <Reveal delay={400}>
-              <div className="p-8 md:p-10 rounded-3xl bg-gradient-to-br from-primary/20 via-primary/10 to-transparent border border-primary/20 relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-radial from-primary/20 to-transparent" />
-                
-                <div className="relative z-10">
-                  <div className="flex items-center gap-2 mb-4">
-                    <Sparkles className="w-5 h-5 text-primary" />
-                    <h4 className="font-display font-semibold text-xl">
-                      {content.opportunityTitle || defaultContent.opportunityTitle}
-                    </h4>
-                  </div>
-                  <p className="text-sm text-muted-foreground mb-6 leading-relaxed">
-                    {content.opportunityDescription || defaultContent.opportunityDescription}
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    {(content.opportunityTags || defaultContent.opportunityTags).map((tag) => (
-                      <span key={tag} className="px-4 py-2 text-xs font-medium bg-primary/20 text-primary rounded-full">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
+            {/* Opportunity Card */}
+            <Reveal delay={200}>
+              <div className="p-8 rounded-2xl bg-foreground text-background">
+                <h4 className="font-semibold text-lg mb-3">
+                  {content.opportunityTitle || defaultContent.opportunityTitle}
+                </h4>
+                <p className="text-sm opacity-80 mb-6">
+                  {content.opportunityDescription || defaultContent.opportunityDescription}
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {(content.opportunityTags || defaultContent.opportunityTags).map((tag) => (
+                    <span key={tag} className="px-3 py-1 text-xs font-medium bg-background/20 rounded-full">
+                      {tag}
+                    </span>
+                  ))}
                 </div>
               </div>
             </Reveal>
           </div>
 
           {/* Contact Form */}
-          <Reveal delay={200}>
-            <div className="p-8 md:p-10 rounded-3xl glass-premium border-gradient">
-              <h3 className="font-display font-semibold text-2xl mb-8">
-                Envie uma Mensagem
-              </h3>
+          <Reveal delay={100}>
+            <div className="p-8 rounded-2xl bg-card border border-border">
+              <h3 className="font-semibold text-xl mb-6">Envie uma Mensagem</h3>
               
               {isSuccess ? (
-                <div className="flex flex-col items-center justify-center py-16 text-center">
-                  <div className="w-20 h-20 rounded-full bg-green-500/20 flex items-center justify-center mb-6 animate-scale-in">
-                    <CheckCircle2 className="w-10 h-10 text-green-500" />
+                <div className="flex flex-col items-center justify-center py-12 text-center">
+                  <div className="w-16 h-16 rounded-full bg-green-500/10 flex items-center justify-center mb-4">
+                    <CheckCircle2 className="w-8 h-8 text-green-500" />
                   </div>
-                  <h4 className="font-display font-semibold text-2xl mb-2">Mensagem Enviada!</h4>
-                  <p className="text-muted-foreground">Obrigado pelo contato. Responderei em breve!</p>
+                  <h4 className="font-semibold text-xl mb-2">Mensagem Enviada!</h4>
+                  <p className="text-muted-foreground text-sm">Responderei em breve.</p>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-6">
+                <form onSubmit={handleSubmit} className="space-y-5">
                   <div>
-                    <label htmlFor="name" className="text-sm font-medium mb-3 block">
+                    <label htmlFor="name" className="text-sm font-medium mb-2 block">
                       Nome
                     </label>
                     <input
@@ -237,18 +194,17 @@ const Contact = () => {
                         setFormData({ ...formData, name: e.target.value });
                         if (errors.name) setErrors({ ...errors, name: undefined });
                       }}
-                      className={`w-full px-5 py-4 rounded-2xl bg-secondary/50 border ${errors.name ? 'border-destructive' : 'border-border'} focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all placeholder:text-muted-foreground/50 hoverable`}
+                      className={`w-full px-4 py-3 rounded-lg bg-secondary border ${errors.name ? 'border-destructive' : 'border-transparent'} focus:border-foreground focus:outline-none transition-colors placeholder:text-muted-foreground`}
                       placeholder="Seu nome"
                       disabled={isSubmitting}
-                      maxLength={100}
                     />
                     {errors.name && (
-                      <p className="text-sm text-destructive mt-2">{errors.name}</p>
+                      <p className="text-sm text-destructive mt-1">{errors.name}</p>
                     )}
                   </div>
                   
                   <div>
-                    <label htmlFor="email" className="text-sm font-medium mb-3 block">
+                    <label htmlFor="email" className="text-sm font-medium mb-2 block">
                       E-mail
                     </label>
                     <input
@@ -259,18 +215,17 @@ const Contact = () => {
                         setFormData({ ...formData, email: e.target.value });
                         if (errors.email) setErrors({ ...errors, email: undefined });
                       }}
-                      className={`w-full px-5 py-4 rounded-2xl bg-secondary/50 border ${errors.email ? 'border-destructive' : 'border-border'} focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all placeholder:text-muted-foreground/50 hoverable`}
+                      className={`w-full px-4 py-3 rounded-lg bg-secondary border ${errors.email ? 'border-destructive' : 'border-transparent'} focus:border-foreground focus:outline-none transition-colors placeholder:text-muted-foreground`}
                       placeholder="seu@email.com"
                       disabled={isSubmitting}
-                      maxLength={255}
                     />
                     {errors.email && (
-                      <p className="text-sm text-destructive mt-2">{errors.email}</p>
+                      <p className="text-sm text-destructive mt-1">{errors.email}</p>
                     )}
                   </div>
                   
                   <div>
-                    <label htmlFor="message" className="text-sm font-medium mb-3 block">
+                    <label htmlFor="message" className="text-sm font-medium mb-2 block">
                       Mensagem
                     </label>
                     <textarea
@@ -280,32 +235,30 @@ const Contact = () => {
                         setFormData({ ...formData, message: e.target.value });
                         if (errors.message) setErrors({ ...errors, message: undefined });
                       }}
-                      rows={5}
-                      className={`w-full px-5 py-4 rounded-2xl bg-secondary/50 border ${errors.message ? 'border-destructive' : 'border-border'} focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all resize-none placeholder:text-muted-foreground/50 hoverable`}
+                      rows={4}
+                      className={`w-full px-4 py-3 rounded-lg bg-secondary border ${errors.message ? 'border-destructive' : 'border-transparent'} focus:border-foreground focus:outline-none transition-colors resize-none placeholder:text-muted-foreground`}
                       placeholder="Como posso ajudar?"
                       disabled={isSubmitting}
-                      maxLength={1000}
                     />
                     {errors.message && (
-                      <p className="text-sm text-destructive mt-2">{errors.message}</p>
+                      <p className="text-sm text-destructive mt-1">{errors.message}</p>
                     )}
                   </div>
                   
                   <Button 
                     type="submit" 
-                    variant="hero" 
-                    size="xl" 
-                    className="w-full group hoverable"
+                    size="lg" 
+                    className="w-full"
                     disabled={isSubmitting}
                   >
                     {isSubmitting ? (
                       <>
-                        <Loader2 className="w-5 h-5 mr-2 animate-spin" />
+                        <Loader2 className="w-4 h-4 mr-2 animate-spin" />
                         Enviando...
                       </>
                     ) : (
                       <>
-                        <Send className="w-5 h-5 mr-2 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                        <Send className="w-4 h-4 mr-2" />
                         Enviar Mensagem
                       </>
                     )}

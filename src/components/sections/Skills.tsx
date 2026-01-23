@@ -79,27 +79,24 @@ const Skills = () => {
   const skillCategories = content.categories || defaultCategories;
 
   return (
-    <section id="habilidades" className="section-padding relative overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-secondary/30 via-transparent to-secondary/30" />
-      
-      <div className="container relative">
+    <section id="habilidades" className="section-padding relative bg-secondary/30">
+      <div className="container">
         <SectionHeader
           badge="Competências"
           title="Habilidades"
           highlight="Técnicas"
         />
 
-        <div className="grid md:grid-cols-2 gap-8">
+        <div className="grid md:grid-cols-2 gap-6">
           {skillCategories.map((category, categoryIndex) => (
             <Reveal key={category.id || category.title} delay={categoryIndex * 100}>
-              <div className="p-8 md:p-10 rounded-3xl glass-premium hover-lift group">
-                <div className="flex items-center gap-4 mb-8">
-                  <span className="text-3xl">{category.icon}</span>
-                  <h3 className="font-display font-semibold text-xl">{category.title}</h3>
+              <div className="p-8 rounded-2xl bg-card border border-border">
+                <div className="flex items-center gap-3 mb-8">
+                  <span className="text-2xl">{category.icon}</span>
+                  <h3 className="font-semibold text-lg">{category.title}</h3>
                 </div>
                 
-                <div className="space-y-6">
+                <div className="space-y-5">
                   {category.skills.map((skill, skillIndex) => (
                     <SkillBar 
                       key={skill.name} 
@@ -154,16 +151,14 @@ const SkillBar = memo(({ name, level, delay }: SkillBarProps) => {
   return (
     <div ref={barRef}>
       <div className="flex justify-between items-center mb-2">
-        <span className="text-sm font-medium">{name}</span>
-        <span className="text-xs text-primary font-mono">{level}%</span>
+        <span className="text-sm">{name}</span>
+        <span className="text-xs text-muted-foreground font-mono">{level}%</span>
       </div>
-      <div className="h-2 bg-muted rounded-full overflow-hidden">
+      <div className="h-1.5 bg-secondary rounded-full overflow-hidden">
         <div 
-          className="h-full rounded-full bg-gradient-to-r from-primary via-primary to-orange-400 transition-all duration-1000 ease-out relative"
+          className="h-full rounded-full bg-foreground transition-all duration-1000 ease-out"
           style={{ width: `${width}%` }}
-        >
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-shimmer" />
-        </div>
+        />
       </div>
     </div>
   );
