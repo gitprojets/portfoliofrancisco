@@ -19,9 +19,9 @@ const iconMap: Record<string, LucideIcon> = {
 };
 
 const defaultLinks: SocialLink[] = [
-  { icon: "Linkedin", href: "https://linkedin.com/in/franciscodouglas", label: "LinkedIn" },
-  { icon: "Github", href: "https://github.com/franciscodouglas", label: "GitHub" },
-  { icon: "Mail", href: "mailto:contato@franciscodouglas.dev", label: "Email" },
+  { icon: "Linkedin", href: "https://linkedin.com/in/francisco-douglas-sousa", label: "LinkedIn" },
+  { icon: "Github", href: "https://github.com/FranciscoDouglas-EngSoft", label: "GitHub" },
+  { icon: "Mail", href: "mailto:franciscodouglas77@outlook.com", label: "Email" },
 ];
 
 export const useSocialLinks = () => {
